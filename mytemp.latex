@@ -162,7 +162,7 @@ $if(geometry)$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $else$
 \usepackage{geometry}
-\geometry{left=3cm,right=3cm,top=3.5cm,bottom=3.5cm}
+\geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm}
 $endif$
 $if(beamer)$
 \newif\ifbibliography
@@ -259,7 +259,7 @@ $else$
 \fi
 $endif$
 $endif$
-
+\usepackage{float}
 % set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
