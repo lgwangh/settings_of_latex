@@ -14,8 +14,10 @@ print('开始转换', file+'.md', '\n')
 res = check_output(r'copy "C:\Files\latex_template\bibtex\gbt7714-bibtex-style\gbt7714.sty"', shell=True).decode('gb18030')
 res = check_output(r'copy "C:\Files\latex_template\bibtex\gbt7714-bibtex-style\gbt7714-plain.bst"', shell=True).decode('gb18030')
 res = check_output(r'copy "C:\Files\latex_template\bibtex\gbt7714-bibtex-style\gbt7714-unsrt.bst"', shell=True).decode('gb18030')
+res = check_output(r'copy "C:\Files\latex_template\beamer\beamerthemesjtu2019.sty"', shell=True).decode('gb18030')
+res = check_output(r'copy "C:\Files\latex_template\beamer\abb"', shell=True).decode('gb18030')
 
-command = 'pandoc -s --template="C:/Files/latex_template/for_pandoc/mytemp.latex" -o {0}.tex {0}.md'.format(file)
+command = 'pandoc --slide-level 2 -s --template="C:/Files/latex_template/for_pandoc/pandoc_md2sjtu2019.latex" -t beamer -o {0}.tex {0}.md'.format(file)
 res = check_output(command, shell=True).decode('gb18030')
 
 print(res)

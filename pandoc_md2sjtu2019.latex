@@ -1,0 +1,182 @@
+$-- pandoc_md2sjtu2019.latex
+$-- Hao Wang
+$-- Version: 2019/4/26
+$-- Modified from tux4ever42's beamer template of Paderborn University
+$-- https://github.com/tux4ever42/latexBeamerTemplateupb
+
+$-- ABOUT: This is a very elementary tamplate for using pandoc to translate markdown
+$-- into sjtu2019 beamer
+
+
+\documentclass[
+% uncomment, if you want to print your presentation as a handout
+  % with possibly more than one slide per a4page. You can choose
+  % the number of slides printed on one handout-page below in the
+  % options of \usetheme.
+    %handout,
+  % ncomment if you want to use 16:9
+    % aspectratio=169,
+  10pt
+  ] {ctexbeamer}
+
+\usetheme[
+  % choose the color theme of the presentation 
+    %cyan
+    %orange
+    %green
+    %cassis
+    %blue
+    red % default
+  ,
+  shortTitleInHeader,
+    %oneslideonhandout      % one slide per page (landscape)
+    %twoslidesonhandout     % two slides per page
+    fourslidesonhandout     % four slides per page (landscape) [default]
+]{sjtu2019}
+
+% NOTES SETTING
+\setbeameroption{hide notes}
+% you can also set it to
+% \setbeameroption{show notes}
+%%%%%%%%%   or   %%%%%%%%%
+% \setbeameroption{show notes on second screen}
+% \makeatletter 
+% \def\beamer@framenotesbegin{% at beginning of slide
+%      \usebeamercolor[fg]{normal text}
+%       \gdef\beamer@noteitems{}% 
+%       \gdef\beamer@notes{}% 
+% }
+% \makeatother
+
+$-- --------------------------------------------------------------------
+
+\usepackage{gbt7714}
+
+$for(beameroption)$
+\setbeameroption{$beameroption$}
+$endfor$
+
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$endif$
+
+
+$if(mainfont)$
+  \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+$endif$
+$if(sansfont)$
+  \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
+$endif$
+$if(monofont)$
+  \setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
+$endif$
+$for(fontfamilies)$
+  \newfontfamily{$fontfamilies.name$}[$for(fontfamilies.options)$$fontfamilies.options$$sep$,$endfor$]{$fontfamilies.font$}
+$endfor$
+
+$if(indent)$
+$else$
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+
+$-- --------------------------------------------------------------------
+
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+\date{$date$}
+$if(institute)$
+\institute{$for(institute)$$institute$$sep$ \and $endfor$}
+$endif$
+$if(titlegraphic)$
+\renewcommand{\titleimage}{$titlegraphic$}
+$endif$
+$if(logo)$
+\renewcommand{\headerlogo}{$logo$}
+$endif$
+
+$--  -----------------------------------------------------------------
+
+\begin{document}
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+% titlepage
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{目录}
+\tableofcontents
+\end{frame}
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$body$
+
+$if(has-frontmatter)$
+\backmatter
+$endif$
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(has-chapters)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+$if(beamer)$
+\begin{frame}[allowframebreaks]{$biblio-title$}
+  \bibliographytrue
+$endif$
+  \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$if(beamer)$
+\end{frame}
+$endif$
+$endif$
+$endif$
+
+$if(biblatex)$
+$if(beamer)$
+\begin{frame}[allowframebreaks]{$biblio-title$}
+  \bibliographytrue
+  \printbibliography[heading=none]
+\end{frame}
+$else$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\section*{感谢聆听}
+\end{document}
