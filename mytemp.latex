@@ -58,7 +58,7 @@ $--     \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$san
 $-- $endif$
 $-- 设置等宽字体
 $if(monofont)$
-    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for($-- monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
 $else$
     \setmonofont[Mapping=tex-ansi]{等距更纱黑体 SC}
 $endif$
